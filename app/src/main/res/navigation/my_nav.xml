@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/productsList">
+
+    <fragment
+        android:id="@+id/productsList"
+        android:name="com.sabazafar.ecommerce.ui.fragments.ProductsListFragment"
+        android:label="products_list_fragment"
+        tools:layout="@layout/products_list_fragment" >
+        <action
+            android:id="@+id/action_productsList_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productDetailFragment"
+        android:name="com.sabazafar.ecommerce.ui.fragments.ProductDetailFragment"
+        android:label="product_detail_fragment"
+        tools:layout="@layout/product_detail_fragment" />
+</navigation>
