@@ -18,5 +18,9 @@
         android:id="@+id/productDetailFragment"
         android:name="com.sabazafar.ecommerce.ui.fragments.ProductDetailFragment"
         android:label="product_detail_fragment"
-        tools:layout="@layout/product_detail_fragment" />
+        tools:layout="@layout/product_detail_fragment" >
+        <argument
+            android:name="product"
+            app:argType="com.sabazafar.ecommerce.entity.Product" />
+    </fragment>
 </navigation>
