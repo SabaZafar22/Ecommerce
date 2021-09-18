@@ -19,7 +19,6 @@ class ProductDetailFragment : Fragment() {
         fun newInstance() = ProductDetailFragment()
     }
 
-    private lateinit var viewModel: ProductDetailViewModel
     private lateinit var binding: ProductDetailFragmentBinding
     private lateinit var addCardbinding: AddCartCustomBtnBinding
 
