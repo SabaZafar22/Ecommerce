@@ -14,7 +14,9 @@ data class Product(
         var imageUrl: String?,
 
         var description: String?,
-        var price: String?
+        var price: String?,
+
+        var item: Int = 1
 
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
@@ -22,7 +24,8 @@ data class Product(
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
-            parcel.readString()) {
+            parcel.readString(),
+            parcel.readInt()) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -31,6 +34,7 @@ data class Product(
         parcel.writeString(imageUrl)
         parcel.writeString(description)
         parcel.writeString(price)
+        parcel.writeInt(item)
     }
 
     override fun describeContents(): Int {

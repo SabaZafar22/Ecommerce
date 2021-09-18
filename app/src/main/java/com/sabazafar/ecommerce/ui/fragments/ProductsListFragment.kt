@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.sabazafar.ecommerce.adapter.ProductAdapter
@@ -18,6 +20,7 @@ import com.sabazafar.ecommerce.entity.Product
 import com.sabazafar.ecommerce.listener.ProductClickedListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ProductsListFragment : Fragment() , ProductClickedListener {
@@ -38,15 +41,14 @@ class ProductsListFragment : Fragment() , ProductClickedListener {
         return binding.root
     }
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
         initUI()
-
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
             viewModel.getAllProducts().collectLatest { response->
-                binding.layoutContainer.loaderContainer.isVisible = false
-               // binding.recyclerview.isVisible =  true
                 productsAdapter.submitData(response)
             }
         }
@@ -62,6 +64,11 @@ class ProductsListFragment : Fragment() , ProductClickedListener {
                 layoutManager = GridLayoutManager(context, 2)
                 adapter = productsAdapter
             }
+        }
+
+        productsAdapter.addLoadStateListener { loadState ->
+            binding.layoutContainer.loaderContainer.isVisible = loadState.refresh is LoadState.Loading ||
+                    loadState.append is LoadState.Loading
         }
     }
 

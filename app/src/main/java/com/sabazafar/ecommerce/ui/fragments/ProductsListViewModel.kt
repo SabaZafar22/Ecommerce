@@ -19,7 +19,7 @@ class ProductsListViewModel
 constructor(private val apiService: ApiService) : ViewModel() {
 
     fun getAllProducts(): Flow<PagingData<Product>> = Pager(
-        config = PagingConfig(20, enablePlaceholders = false)
+            config = PagingConfig(20, enablePlaceholders = true)
     ) {
         ProductRepository(apiService)
     }.flow.cachedIn(viewModelScope)
